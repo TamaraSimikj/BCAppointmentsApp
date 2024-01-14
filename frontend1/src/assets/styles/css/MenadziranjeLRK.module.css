@@ -1,0 +1,62 @@
+@keyframes fadeAnim {
+    0%{
+        width: 0;
+        opacity: 0;
+    }
+    100%{
+        width: 250px;
+        opacity: 1;
+    }
+}
+
+.searchBar{
+    width: 245px;
+    transition: width .5s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+    border-radius: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchBar.searching{
+    width: 600px;
+}
+
+.additionalUser{
+    text-align: inherit;
+}
+
+.searchField{
+   animation: fadeAnim .5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+   flex-grow: 1;
+   margin-right: 10px;
+   margin-left: 10px;
+}
+
+.usersTable tbody tr:not(.additionalUser) td:nth-of-type(1){
+    border-bottom: none;
+    /* max-width: 60px; */
+    width: 60px;
+    /* width: fit-content; */
+    
+}
+
+.panel {
+    box-shadow: -10px -10px 30px 0 rgba(255, 255, 255, 0.9), 10px 10px 30px 0 rgb(142, 142, 190, 0.17);
+    padding: 24px;
+    width: 650px;
+    margin-top: 24px;
+    border-radius: 15px;
+    max-width: 100%;
+}
+
+@media only screen and (max-width: 980px) {
+    .panel {
+        min-width: unset;
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+.statusClass {
+    background-color: red;
+}
