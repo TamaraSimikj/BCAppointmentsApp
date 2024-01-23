@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Employee, Service } from "../../data/models/Models";
 import { useNotification } from "../../hooks/useNotification";
-import { useTheme } from "@material-ui/core";
+import { useTheme } from "@mui/material";
 import ServicesService from "../../services/services.service";
 import ServiceForm from "./ServiceForm";
 import { ServiceDTO } from "../../data/models/DTOs";

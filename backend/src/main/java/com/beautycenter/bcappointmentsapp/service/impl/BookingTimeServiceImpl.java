@@ -2,21 +2,24 @@ package com.beautycenter.bcappointmentsapp.service.impl;
 
 import com.beautycenter.bcappointmentsapp.model.BookingTime;
 import com.beautycenter.bcappointmentsapp.model.Employee;
+import com.beautycenter.bcappointmentsapp.model.EmployeesServices;
 import com.beautycenter.bcappointmentsapp.model.dto.BookingTimeDTO;
 import com.beautycenter.bcappointmentsapp.model.dto.BookingTimeRequest;
+import com.beautycenter.bcappointmentsapp.model.dto.BookingTimeSlotsDTO;
 import com.beautycenter.bcappointmentsapp.model.exceptions.NotFoundException;
 import com.beautycenter.bcappointmentsapp.repository.BookingTimeRepository;
 import com.beautycenter.bcappointmentsapp.service.BookingTimeService;
 import com.beautycenter.bcappointmentsapp.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -32,6 +35,29 @@ public class BookingTimeServiceImpl implements BookingTimeService {
     @Override
     public List<BookingTime> findAll() {
         return this.bookingTimeRepository.findAll();
+    }
+
+    @Override
+    public List<BookingTimeSlotsDTO> findAllByDate(LocalDateTime date,Long serviceId) {
+        List<Long> employeeIds = employeeService.findEmployeeIdsByServiceId(serviceId);
+
+        LocalDateTime startOfDay = LocalDateTime.of(date.toLocalDate(), LocalTime.MIN);
+        LocalDateTime endOfDay = LocalDateTime.of(date.toLocalDate(), LocalTime.MAX);
+
+//        List<BookingTime> bookingTimes = bookingTimeRepository.findAllByStartTimeBetween(startOfDay, endOfDay);
+        List<BookingTime> bookingTimes;
+        if (employeeIds != null && !employeeIds.isEmpty()) {
+            // Filter by employee ids
+            bookingTimes = bookingTimeRepository.findAllByStartTimeBetweenAndEmployee_IdInOrderByStartTime(startOfDay, endOfDay, employeeIds);
+        } else {
+            bookingTimes = Collections.emptyList();
+        }
+        return bookingTimes.stream()
+                .map(bookingTime -> new BookingTimeSlotsDTO(
+                        bookingTime.getId(),
+                        bookingTime.getStartTime().toLocalTime(),
+                        bookingTime.getEmployee().getId()))
+                .collect(Collectors.toList());
     }
 
     @Override

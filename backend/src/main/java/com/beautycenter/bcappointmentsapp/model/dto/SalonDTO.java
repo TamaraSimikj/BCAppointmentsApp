@@ -8,6 +8,6 @@ public class SalonDTO {
     private String address;
     private String number;
     private String email;
-
+    private String image;
 }
 

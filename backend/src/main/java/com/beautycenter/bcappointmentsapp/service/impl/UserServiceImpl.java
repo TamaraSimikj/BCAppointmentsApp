@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllAdmins() {
+        return this.userRepository.findAllByRole(Role.ROLE_ADMIN);
+    }
+
+    @Override
     public User findbyId(Long id) {
         return this.userRepository.findById(id).orElseThrow(NotFoundException::new);
     }
@@ -138,7 +143,8 @@ public User registerEmployee(RegisterDTO registerDTO) {
 
     @Override
     public User registerAdmin(UserDTO userDTO) {
-        User admin = new User(userDTO);
+       // User admin = new User(userDTO);
+        User admin = create(userDTO.getUsername(),userDTO.getPassword(),userDTO.getRole());
         return this.userRepository.save(admin);
     }
 

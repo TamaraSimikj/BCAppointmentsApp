@@ -18,6 +18,8 @@ import AuthService from "../services/auth.service";
 import { useNotification } from "../hooks/useNotification";
 import { useUser } from "../contexts/UserContext";
 import { Stack } from "@mui/material";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import ModeOfTravelIcon from "@mui/icons-material/ModeOfTravel";
 
 const pages = ["Home", "Salons", "Categories", "Services", "BookingTimes"];
 const settings = ["Profile", "Appointments", "Logout"];
@@ -64,7 +66,8 @@ const NavBar: React.FC<NavBarProps> = ({ closeMobileMenu }) => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          {/* <ModeOfTravelIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
+          <KeyboardDoubleArrowRightIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -121,7 +124,8 @@ const NavBar: React.FC<NavBarProps> = ({ closeMobileMenu }) => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
+          <KeyboardDoubleArrowRightIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -158,7 +162,7 @@ const NavBar: React.FC<NavBarProps> = ({ closeMobileMenu }) => {
             <Box sx={{ flexGrow: 0 }}>
               <Stack direction={"row"} gap={"5px"}>
                 <Typography color={"secondary"} sx={{ alignSelf: "center" }} variant="h6">
-                  {user.client?.name || user.employee?.name}
+                  {user.client?.name || user.employee?.name || user.username}
                 </Typography>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

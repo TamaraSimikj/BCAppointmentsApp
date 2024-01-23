@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent, Typography, IconButton, Avatar, CardHeader, CardMedia } from "@material-ui/core";
+import { Card, CardContent, Typography, IconButton, Avatar, CardHeader, CardMedia } from "@mui/material";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@material-ui/icons";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddEditSalon from "./AddEditSalon";
 import { Salon, Favorites } from "../../data/models/Models";
 import { useNotification } from "../../hooks/useNotification";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, useTheme } from "@mui/material";
 import SalonService from "../../services/salon.service";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
@@ -14,7 +14,8 @@ import { useUser } from "../../contexts/UserContext";
 const SalonList = () => {
   const { user } = useUser();
 
-  const isEmployee = user?.role == "ROLE_EMPLOYEE";
+  const isAdmin = user?.role == "ROLE_ADMIN";
+  const isClient = user?.role == "ROLE_CLIENT";
   const [salons, setSalons] = useState<Salon[]>([]);
   const [favorites, setFavorites] = useState<Favorites[]>([]);
   const [selectedSalon, setSelectedSalon] = useState<Salon | null>(null);
@@ -31,19 +32,10 @@ const SalonList = () => {
   const fetchSalons = async () => {
     const data = await SalonService.getAllSalons();
     setSalons(data);
-    // // Make a GET request to fetch the list of salons
-    // fetch("http://localhost:8080/api/salons")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setSalons(data);
-    //     console.log("data", data);
-    //   })
-    //   .catch((error) => console.error("Error fetching salons:", error));
   };
 
   const fetchFavorites = async () => {
     const data = await SalonService.getFavorites();
-    //console.log("favorites", data);
     setFavorites(data);
   };
 
@@ -55,13 +47,10 @@ const SalonList = () => {
     } else {
       const addedFavorite = await SalonService.addToFavourites(salon);
       setFavorites((prevFavorites) => [...prevFavorites, addedFavorite]);
-      //fetchFavorites();
     }
   };
   const handleCardClick = (event: any) => {
     const cardKey = event.currentTarget.getAttribute("data-key");
-
-    console.log("card clicked", cardKey);
     navigate("/" + cardKey);
   };
 
@@ -111,6 +100,7 @@ const SalonList = () => {
       address: salon.address,
       number: salon.number,
       email: salon.email,
+      image: salon.image,
     };
 
     fetch(`http://localhost:8080/api/salons/${salon.id}`, {
@@ -135,9 +125,9 @@ const SalonList = () => {
   };
 
   return (
-    <div>
-      <Typography variant="h6" align="center">
-        List of available salons
+    <>
+      <Typography variant="h3" align="center" color={"secondary"} style={{ padding: 5 }}>
+        Available salons
       </Typography>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {salons.map((salon) => (
@@ -154,28 +144,25 @@ const SalonList = () => {
               //   </Avatar>
               // }
               action={
-                <IconButton aria-label="add to favorites" onClick={(event) => handleClickFavorites(event, salon)}>
-                  {favorites.find((fav) => fav.salon.id === salon.id) ? (
-                    <FavoriteIcon sx={{ color: "red" }} />
-                  ) : (
-                    <FavoriteBorderIcon sx={{ color: "red" }} />
-                  )}
-                </IconButton>
+                isClient && (
+                  <IconButton aria-label="add to favorites" onClick={(event) => handleClickFavorites(event, salon)}>
+                    {favorites.find((fav) => fav.salon.id === salon.id) ? (
+                      <FavoriteIcon sx={{ color: "red" }} />
+                    ) : (
+                      <FavoriteBorderIcon sx={{ color: "red" }} />
+                    )}
+                  </IconButton>
+                )
               }
               title={salon.name}
               subheader={salon.address}
             />
-            <CardMedia
-              component="img"
-              height="140"
-              image="https://w7.pngwing.com/pngs/393/665/png-transparent-beauty-salon-logo-thumbnail.png"
-              alt="Salon Image"
-            />
+            <CardMedia component="img" height="140" image={salon.image} alt="Salon Image" />
             <CardContent>
               <Typography>{salon.number}</Typography>
               <Typography>{salon.email}</Typography>
             </CardContent>
-            {isEmployee && (
+            {isAdmin && (
               <Stack direction={"row"} display={"block"} textAlign={"center"}>
                 <IconButton aria-label="edit" onClick={(event) => handleEdit(event, salon)}>
                   <EditIcon />
@@ -200,13 +187,13 @@ const SalonList = () => {
         </>
       )}
 
-      <Dialog open={isDeleteDialogOpen} onClose={() => setIsDeleteDialogOpen(false)} maxWidth="sm" fullWidth>
+      <Dialog open={isDeleteDialogOpen} onClose={() => setIsDeleteDialogOpen(false)} maxWidth="sm">
         <DialogTitle>Delete Salon: {selectedSalon?.name}</DialogTitle>
         <DialogContent>
           <Typography>Are you sure you want to delete {selectedSalon?.name}?</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => onDelete(selectedSalon || undefined)} variant="contained">
+          <Button onClick={() => onDelete(selectedSalon || undefined)} variant="contained" color="error">
             Delete
           </Button>
           <Button onClick={() => setIsDeleteDialogOpen(false)} variant="outlined">
@@ -214,7 +201,7 @@ const SalonList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 

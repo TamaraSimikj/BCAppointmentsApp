@@ -27,6 +27,10 @@ public class EmployeesServices {
         this.employee = employee;
     }
 
+    public Long getEmployeeId() {
+        return employee.getId();
+    }
+
 
 }
 

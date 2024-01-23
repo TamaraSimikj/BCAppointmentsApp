@@ -36,6 +36,8 @@ public class Salon {
     @Column(nullable = false, length = 150)
     private String email;
 
+    private String image;
+
 //    @OneToMany(mappedBy = "salon")
 //    @JsonManagedReference
 //    private List<Employee> salonEmployees;
@@ -47,11 +49,12 @@ public class Salon {
 //    @ManyToMany(mappedBy = "favouritesSalons")
 //    private List<Client> favouritesClients;
 
-    public Salon(String name, String address, String number, String email) {
+    public Salon(String name, String address, String number, String email,String image) {
         this.name = name;
         this.address = address;
         this.number = number;
         this.email = email;
+        this.image = image;
     }
 
     public Salon(SalonDTO salonDTO) {
@@ -59,6 +62,7 @@ public class Salon {
         this.address = salonDTO.getAddress();
         this.number = salonDTO.getNumber();
         this.email = salonDTO.getEmail();
+        this.image = salonDTO.getImage();
     }
 }
 

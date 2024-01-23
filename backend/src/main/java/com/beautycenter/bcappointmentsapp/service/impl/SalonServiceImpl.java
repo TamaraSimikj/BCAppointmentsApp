@@ -42,6 +42,7 @@ public class SalonServiceImpl implements SalonService {
         salon.setAddress(updatedSalon.getAddress());
         salon.setNumber(updatedSalon.getNumber());
         salon.setEmail(updatedSalon.getEmail());
+        salon.setImage(updatedSalon.getImage());
         return this.salonRepository.save(salon);
     }
 

@@ -6,6 +6,7 @@ export interface Salon {
   address: string;
   number: string;
   email: string;
+  image: string;
 }
 
 export interface Client {

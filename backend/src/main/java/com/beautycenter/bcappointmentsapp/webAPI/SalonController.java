@@ -1,6 +1,5 @@
 package com.beautycenter.bcappointmentsapp.webAPI;
 
-import com.beautycenter.bcappointmentsapp.model.Client;
 import com.beautycenter.bcappointmentsapp.model.Favorites;
 import com.beautycenter.bcappointmentsapp.model.Salon;
 import com.beautycenter.bcappointmentsapp.model.dto.FavoritesRequest;
@@ -95,4 +94,5 @@ public class SalonController{
             return new ResponseEntity<>(new ErrorResponse("An error occurred while removing from favorites"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

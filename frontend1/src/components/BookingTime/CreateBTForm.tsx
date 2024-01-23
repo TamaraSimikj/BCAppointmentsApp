@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { IconButton, InputLabel, MenuItem, Select, Stack } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+import {
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  Box,
+  Typography,
+  Button,
+  Modal,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+} from "@mui/material";
+
 import { BookingTime, Employee } from "../../data/models/Models";
 import EmployeeService from "../../services/employee.service";
 import AuthService from "../../services/auth.service";

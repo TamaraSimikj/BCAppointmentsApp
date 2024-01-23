@@ -9,6 +9,7 @@ import java.util.List;
 public interface EmployeeService {
     List<Employee> findAll();
     List<Employee> findAllBySalonId(Long id);
+    List<Long> findEmployeeIdsByServiceId(Long serviceId);
     Employee findbyId(Long id);
 
   //  Employee create(EmployeeDTO employeeDTO);

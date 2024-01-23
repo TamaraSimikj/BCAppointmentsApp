@@ -13,6 +13,7 @@ import {
   Box,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import CategoryService from "../../services/category.service";
 import { Category } from "../../data/models/DTOs";
@@ -21,7 +22,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNotification } from "../../hooks/useNotification";
-import { Typography, useTheme } from "@material-ui/core";
+import { useTheme } from "@material-ui/core";
 
 const Categories = () => {
   const theme = useTheme();

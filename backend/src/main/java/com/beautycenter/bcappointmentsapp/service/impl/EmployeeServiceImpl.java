@@ -72,7 +72,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeesServices> findAllEmployeesByServiceId(Long id) {
         return this.employeesServicesRepository.findAllByService_Id(id);
     }
+    public List<Long> findEmployeeIdsByServiceId(Long serviceId) {
+        List<EmployeesServices> employeesServices = employeesServicesRepository.findAllByService_Id(serviceId);
 
+        return employeesServices.stream()
+                .map(EmployeesServices::getEmployeeId)
+                .collect(Collectors.toList());
+    }
     @Override
     public void updateEmployeesForService(UpdateAssignEmplRequest updateAssignEmplRequest) {
         Service service = updateAssignEmplRequest.getService();
