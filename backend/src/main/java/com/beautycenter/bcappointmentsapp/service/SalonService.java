@@ -10,6 +10,7 @@ import java.util.List;
 public interface SalonService {
 
     List<Salon> findAll();
+    List<Salon> findAllFavoritesForClient(Long id);
     Salon findbyId(Long id);
 
 //    Salon create(String name, String address, String number, String email);

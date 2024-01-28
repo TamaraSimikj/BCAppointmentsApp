@@ -48,8 +48,12 @@ const NavBar: React.FC<NavBarProps> = ({ closeMobileMenu }) => {
   };
 
   const handleCloseUserMenu = (setting: String) => {
-    console.log(setting, "setting");
-    if (setting === "Logout") {
+    //console.log(setting, "setting");
+    if (setting === "Profile") {
+      navigate("/profile");
+    } else if (setting === "Appointments") {
+      navigate("/appointments");
+    } else if (setting === "Logout") {
       AuthService.logout();
       updateUser();
       showNotification("Successfull logout", "success");

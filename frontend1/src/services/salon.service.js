@@ -17,6 +17,19 @@ const SalonService = {
       throw error;
     }
   },
+  getAllFavoritesSalons: async (id) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/allFavorites/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching salons:', error);
+      throw error;
+    }
+  },
 
   getSalonById: async (id) => {
     try {

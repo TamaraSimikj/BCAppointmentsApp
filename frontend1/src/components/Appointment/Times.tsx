@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Grid, Button, Typography, FormControl, Select, InputLabel, MenuItem, Stack, Box } from "@mui/material";
-import { Employee, Service } from "../../data/models/Models";
+import { BookingTime, Employee, Service } from "../../data/models/Models";
 import { Calendar } from "react-multi-date-picker";
 import AppointmentService from "../../services/appointment.service";
 import EmployeeService from "../../services/employee.service";
@@ -16,7 +16,7 @@ type SlotsData = {
 };
 interface TimesProps {
   service: Service;
-  onNext: (dataForm: any) => void;
+  onNext: (bookingTimeId: number) => void;
 }
 
 const Times: React.FC<TimesProps> = ({ service, onNext }) => {
@@ -28,7 +28,9 @@ const Times: React.FC<TimesProps> = ({ service, onNext }) => {
   const [slotsData, setSlotsData] = useState<SlotsData[]>([]);
   const [slots, setSlots] = useState<SlotTime[]>([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
-
+  const [selectedBookingTime, setSelectedBookingTime] = useState<number>(-1);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   useEffect(() => {
     const fetchEmployees = async () => {
       const employeesData = await EmployeeService.getAllEmployeesForService(service.id);
@@ -51,15 +53,6 @@ const Times: React.FC<TimesProps> = ({ service, onNext }) => {
   }, [selectedEmployee, slotsData]);
   const handleEmployeeChange = (employeeId: number | string) => {
     setSelectedEmployee(employeeId);
-
-    // if (employeeId !== "-1") {
-    //   const filteredSlots = slotsData.filter((slot: any) => slot.employeeId == employeeId);
-    //   const uniqueTimeListFiltered: SlotTime[] = [...new Set(filteredSlots.map((slot: any) => slot.time))] as SlotTime[];
-    //   setSlots(uniqueTimeListFiltered);
-    // } else {
-    //   const uniqueTimeList: SlotTime[] = [...new Set(slotsData.map((slot: any) => slot.time))] as SlotTime[];
-    //   setSlots(uniqueTimeList);
-    // }
   };
 
   const handleDateChange = (date: Date | null) => {
@@ -79,15 +72,9 @@ const Times: React.FC<TimesProps> = ({ service, onNext }) => {
     console.log("selectedEmployee on fetch", selectedEmployee);
     setSelectedTimeSlot(null);
 
-    // if (selectedEmployee != "-1") {
-    //   const filteredSlots = slots.filter((slot: any) => slot.employeeId == selectedEmployee);
-    //   const uniqueTimeListFiltered: SlotTime[] = [...new Set(filteredSlots.map((slot: any) => slot.time))] as SlotTime[];
-    //   setSlots(uniqueTimeListFiltered);
-    // } else {
     const uniqueTimeList: SlotTime[] = [...new Set(slots.map((slot: any) => slot.time))] as SlotTime[];
     console.log("uniqueTimeList", uniqueTimeList);
     setSlots(uniqueTimeList);
-    //}
   };
 
   const handleTimeSlotClick = (timeSlot: string) => {
@@ -100,16 +87,14 @@ const Times: React.FC<TimesProps> = ({ service, onNext }) => {
     if (selectedSlot) {
       const bookingId = selectedSlot.id;
       console.log(`Selected time slot: ${timeSlot}, Booking ID: ${bookingId}`);
+      setSelectedBookingTime(selectedSlot.id);
     } else {
       console.log(`No booking found for time slot: ${timeSlot}`);
     }
   };
   const handleNextClick = () => {
     // You can pass the selected time slot and any other relevant data to the onNext function
-    onNext({
-      selectedTimeSlot,
-      // Include other data if needed
-    });
+    onNext(selectedBookingTime);
   };
 
   return (
@@ -118,7 +103,7 @@ const Times: React.FC<TimesProps> = ({ service, onNext }) => {
         <Typography variant="h6" gutterBottom>
           Select Date:
         </Typography>
-
+        {/* minDate={today} */}
         <Calendar value={selectedDate} onChange={(newDate: any) => handleDateChange(newDate)} className="teal" format="DD/MM/YYYY" />
         <Typography variant="h6" gutterBottom sx={{ marginTop: "5%" }}>
           Filter by employee:
@@ -149,6 +134,13 @@ const Times: React.FC<TimesProps> = ({ service, onNext }) => {
       <Stack>
         <Typography variant="h6" gutterBottom sx={{ width: "max-content" }}>
           Available Time Slots:
+        </Typography>
+        <Typography gutterBottom sx={{ width: "max-content", fontStyle: "italic" }}>
+          {slots.length == 0 && selectedDate !== null
+            ? "There is no available time on selected day. Please select another date."
+            : slots.length == 0 && selectedDate == null
+            ? "Please select date to check availability!"
+            : ""}
         </Typography>
         <Grid container spacing={2}>
           {slots.map((timeSlot: any) => (

@@ -1,7 +1,9 @@
 package com.beautycenter.bcappointmentsapp.model;
 
+import com.beautycenter.bcappointmentsapp.model.dto.ReviewDTO;
 import lombok.*;
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -31,6 +33,15 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_id", nullable = false)
     private Appointment appointment;
+
+
+    public Review(ReviewDTO reviewDTO){
+        this.appointment = reviewDTO.getAppointment();
+        this.comment = reviewDTO.getComment();
+        this.date_time = LocalDateTime.parse(reviewDTO.getDate_time());
+        this.rating = reviewDTO.getRating();
+        this.client = reviewDTO.getClient();
+    }
 }
 
 

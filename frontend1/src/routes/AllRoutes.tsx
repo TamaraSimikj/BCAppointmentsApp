@@ -11,8 +11,14 @@ import ProtectedRoute from "./ProtectedRoute";
 import RegisterAdmin from "../components/auth/RegisterAdmin";
 import SelectedSalon from "../components/Salon/SelectedSalon";
 import Times from "../components/Appointment/Times";
+import AppointmentsList from "../components/Appointment/AppointmentsList";
+import Appointments from "../components/Appointment/Appointments";
+import { useUser } from "../contexts/UserContext";
+import AppointmentsManagement from "../components/Appointments-Empl/AppointmentsManagement";
+import Profile from "../components/Profile";
 
 const AllRoutes = () => {
+  const { user } = useUser();
   return (
     <div>
       <Routes>
@@ -32,6 +38,12 @@ const AllRoutes = () => {
         <Route path="/services" element={<Services />} />
         <Route path="/bookingTimes" element={<BookingTimes />} />
         <Route path="/:id" element={<SelectedSalon />} />
+        {user?.role === "ROLE_EMPLOYEE" ? (
+          <Route path="/appointments" element={<AppointmentsManagement />} />
+        ) : (
+          <Route path="/appointments" element={<Appointments />} />
+        )}
+        {user?.role === "ROLE_CLIENT" ? <Route path="/profile" element={<Profile />} /> : <Route path="/profile" element={""} />}
       </Routes>
     </div>
   );

@@ -5,8 +5,8 @@ import { Category, Salon, Service } from "../../data/models/Models";
 import SalonService from "../../services/salon.service";
 import ServicesService from "../../services/services.service";
 import CategoryService from "../../services/category.service";
-import { useNavigate, useLocation } from "react-router-dom";
 import AppointmentModal from "../Appointment/AppointmentModal";
+import ReviewsList from "../Review/ReviewsList";
 
 const SelectedSalon: React.FC = () => {
   const { id } = useParams();
@@ -52,9 +52,7 @@ const SelectedSalon: React.FC = () => {
     setIsDialogOpen(true);
     // navigate(`${pathname}/free`);
   };
-  const onReserve = (reserveForm: any) => {
-    console.log("reserve clicked, save reserveForm", reserveForm);
-  };
+
   return (
     <Box p={5}>
       <Typography variant="h2" color={"secondary"}>
@@ -100,43 +98,53 @@ const SelectedSalon: React.FC = () => {
             const labelId = `service-list-item-${service.id}`;
 
             return (
-              <ListItem key={service.id} disablePadding>
-                <ListItemButton
+              <ListItem
+                key={service.id}
+                disablePadding
+                sx={{
+                  height: "90px",
+                  padding: "1em",
+                  "&:hover": {
+                    backgroundColor: "#f5f1e1",
+                  },
+                }}
+              >
+                {/* <ListItemButton
                   sx={{
                     height: "90px",
                     "&:hover": {
                       backgroundColor: "#f5f1e1",
                     },
                   }}
-                >
-                  <ListItemAvatar>
-                    <Avatar alt={`Avatar n°${service.id + 1}`} src={`/static/images/avatar/${service.id + 1}.jpg`} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    id={labelId}
-                    primary={
-                      <React.Fragment>
-                        <Typography variant="subtitle1">{service.name}</Typography>
-                        <Typography variant="body2" color="textSecondary">
-                          {service.description}
-                        </Typography>
-                      </React.Fragment>
-                    }
-                  />
-                  <ListItemText
-                    id={labelId}
-                    primary={
-                      <Stack direction={"row"} justifyContent="flex-end">
-                        <Typography variant="subtitle1" alignSelf={"center"} pr={2}>
-                          {service.value}
-                        </Typography>
-                        <Button variant="contained" color="secondary" onClick={() => handleClickSelect(service)}>
-                          Select
-                        </Button>
-                      </Stack>
-                    }
-                  />
-                </ListItemButton>
+                > */}
+                <ListItemAvatar>
+                  <Avatar alt={`Avatar n°${service.id + 1}`} src={`/static/images/avatar/${service.id + 1}.jpg`} />
+                </ListItemAvatar>
+                <ListItemText
+                  id={labelId}
+                  primary={
+                    <React.Fragment>
+                      <Typography variant="subtitle1">{service.name}</Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        {service.description}
+                      </Typography>
+                    </React.Fragment>
+                  }
+                />
+                <ListItemText
+                  id={labelId}
+                  primary={
+                    <Stack direction={"row"} justifyContent="flex-end">
+                      <Typography variant="subtitle1" alignSelf={"center"} pr={2}>
+                        {service.value}
+                      </Typography>
+                      <Button variant="contained" color="secondary" onClick={() => handleClickSelect(service)}>
+                        Select
+                      </Button>
+                    </Stack>
+                  }
+                />
+                {/* </ListItemButton> */}
               </ListItem>
             );
           })}
@@ -144,14 +152,10 @@ const SelectedSalon: React.FC = () => {
       </Stack>
       {selectedService && (
         <>
-          <AppointmentModal
-            open={isDialogOpen || false}
-            service={selectedService}
-            onSave={(reserveForm: any) => onReserve(reserveForm)}
-            onClose={() => setIsDialogOpen(false)}
-          />
+          <AppointmentModal open={isDialogOpen || false} service={selectedService} onClose={() => setIsDialogOpen(false)} />
         </>
       )}
+      <ReviewsList salonId={salon?.id || -1} />
     </Box>
   );
 };

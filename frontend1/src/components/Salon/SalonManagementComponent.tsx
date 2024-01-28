@@ -54,6 +54,9 @@ const SalonManagementComponent = () => {
     <>
       {" "}
       <Stack>
+        <Typography variant="h3" align="center" color={"secondary"} style={{ padding: 5 }}>
+          Available salons
+        </Typography>
         <Box
           sx={{
             display: "flex",
@@ -84,7 +87,7 @@ const SalonManagementComponent = () => {
           <AddEditSalon open={open} onClose={handleClose} salon={undefined} onSave={(salon: Salon) => handleAddSalon(salon)} isNew={true} />
         </Box>
 
-        <SalonList />
+        <SalonList onlyFavorites={false} />
       </Stack>
     </>
   );

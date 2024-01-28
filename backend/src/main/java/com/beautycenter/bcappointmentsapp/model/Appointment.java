@@ -2,6 +2,7 @@ package com.beautycenter.bcappointmentsapp.model;
 
 import javax.persistence.*;
 
+import com.beautycenter.bcappointmentsapp.model.dto.AppointmentDTO;
 import com.beautycenter.bcappointmentsapp.model.enums.AppointmentStatus;
 import lombok.*;
 
@@ -10,6 +11,8 @@ import java.util.Set;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +43,7 @@ public class Appointment {
     private Employee employee;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id")
+    @JoinColumn(name = "payment_id", nullable = true)
     private Payment payment;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "payment_id", nullable = false)
@@ -53,7 +56,16 @@ public class Appointment {
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 
-
+    public Appointment(AppointmentDTO appointmentDTO){
+        this.status = AppointmentStatus.valueOf(appointmentDTO.getStatus());
+        this.employee = appointmentDTO.getEmployee();
+        this.service = appointmentDTO.getService();
+        this.price = appointmentDTO.getPrice();
+        this.client = appointmentDTO.getClient();
+        this.bookingTime = appointmentDTO.getBookingTime();
+        this.salon = appointmentDTO.getSalon();
+        this.payment = appointmentDTO.getPayment();
+    }
 
 }
 

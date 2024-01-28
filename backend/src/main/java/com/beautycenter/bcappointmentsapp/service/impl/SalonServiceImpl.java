@@ -11,6 +11,7 @@ import com.beautycenter.bcappointmentsapp.service.SalonService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SalonServiceImpl implements SalonService {
@@ -27,6 +28,15 @@ public class SalonServiceImpl implements SalonService {
     @Override
     public List<Salon> findAll() {
         return this.salonRepository.findAll();
+    }
+
+    @Override
+    public List<Salon> findAllFavoritesForClient(Long id) {
+        List<Favorites> favorites = this.favouritesRepository.findAllByClient_Id(id);
+        List<Salon> salons = favorites.stream()
+                .map(Favorites::getSalon)
+                .collect(Collectors.toList());
+        return salons;
     }
 
 //    @Override

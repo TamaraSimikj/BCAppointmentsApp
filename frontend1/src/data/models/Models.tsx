@@ -1,4 +1,4 @@
-import { Role } from "../enums";
+import { AppointmentStatus, Role } from "../enums";
 
 export interface Salon {
   id: number;
@@ -74,4 +74,33 @@ export interface EmployeesServices {
   id: number;
   employee: Employee;
   service: Service;
+}
+
+export interface Payment {
+  id: number;
+  paymentInfo: string;
+  status: string;
+  online: boolean;
+  paymentId: string;
+}
+
+export interface Appointment {
+  id: number;
+  status: AppointmentStatus;
+  price: number;
+  client: Client;
+  bookingTime: BookingTime;
+  salon: Salon;
+  employee: Employee;
+  payment: Payment;
+  service: Service;
+}
+
+export interface Review {
+  id: number;
+  comment: string;
+  rating: number;
+  date_time: string;
+  client: Client;
+  appointment: Appointment;
 }

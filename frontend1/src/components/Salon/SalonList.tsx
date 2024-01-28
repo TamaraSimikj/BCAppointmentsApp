@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Card, CardContent, Typography, IconButton, Avatar, CardHeader, CardMedia } from "@mui/material";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@material-ui/icons";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -11,7 +11,10 @@ import SalonService from "../../services/salon.service";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
 
-const SalonList = () => {
+interface SalonListProps {
+  onlyFavorites: boolean;
+}
+const SalonList: FC<SalonListProps> = ({ onlyFavorites }) => {
   const { user } = useUser();
 
   const isAdmin = user?.role == "ROLE_ADMIN";
@@ -30,7 +33,13 @@ const SalonList = () => {
   }, []);
 
   const fetchSalons = async () => {
-    const data = await SalonService.getAllSalons();
+    let data;
+    if (onlyFavorites) {
+      data = await SalonService.getAllFavoritesSalons(user?.client.id);
+    } else {
+      data = await SalonService.getAllSalons();
+    }
+
     setSalons(data);
   };
 
@@ -126,9 +135,6 @@ const SalonList = () => {
 
   return (
     <>
-      <Typography variant="h3" align="center" color={"secondary"} style={{ padding: 5 }}>
-        Available salons
-      </Typography>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {salons.map((salon) => (
           <Card

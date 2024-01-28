@@ -30,6 +30,11 @@ public class SalonController{
         return  ResponseEntity.ok(this.salonService.findAll());
     }
 
+    @GetMapping("/allFavorites/{id}")
+    public  ResponseEntity<List<Salon>> showFavoritesSalons(@PathVariable Long id) {
+        return  ResponseEntity.ok(this.salonService.findAllFavoritesForClient(id));
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getSalonById(@PathVariable Long id) {
