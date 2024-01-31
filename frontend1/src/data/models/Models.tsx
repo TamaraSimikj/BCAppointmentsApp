@@ -4,6 +4,8 @@ export interface Salon {
   id: number;
   name: string;
   address: string;
+  latitude: string;
+  longitude: string;
   number: string;
   email: string;
   image: string;

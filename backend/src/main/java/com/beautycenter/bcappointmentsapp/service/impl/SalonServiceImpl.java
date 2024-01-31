@@ -50,9 +50,16 @@ public class SalonServiceImpl implements SalonService {
         Salon salon = this.findbyId(id);
         salon.setName(updatedSalon.getName());
         salon.setAddress(updatedSalon.getAddress());
+        salon.setLatitude(updatedSalon.getLatitude());
+        salon.setLongitude(updatedSalon.getLongitude());
         salon.setNumber(updatedSalon.getNumber());
         salon.setEmail(updatedSalon.getEmail());
-        salon.setImage(updatedSalon.getImage());
+        if (updatedSalon.getImage().length() > 255) {
+            salon.setImage("https://toppng.com/uploads/preview/beauty-center-png-beauty-center-logo-png-11556097776anielza4zb.png");
+        } else {
+            salon.setImage(updatedSalon.getImage());
+        }
+
         return this.salonRepository.save(salon);
     }
 

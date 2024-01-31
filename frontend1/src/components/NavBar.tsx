@@ -19,10 +19,10 @@ import { useNotification } from "../hooks/useNotification";
 import { useUser } from "../contexts/UserContext";
 import { Stack } from "@mui/material";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import ModeOfTravelIcon from "@mui/icons-material/ModeOfTravel";
 
-const pages = ["Home", "Salons", "Categories", "Services", "BookingTimes"];
-const settings = ["Profile", "Appointments", "Logout"];
+// const pages = ["Home", "Salons", "Categories", "Services", "BookingTimes"];
+
+// const settings = ["Profile", "Appointments", "Logout"];
 
 interface NavBarProps {
   closeMobileMenu: () => void;
@@ -34,7 +34,16 @@ const NavBar: React.FC<NavBarProps> = ({ closeMobileMenu }) => {
   const navigate = useNavigate();
   const { showNotification } = useNotification();
   const { user, updateUser } = useUser();
+  const pages =
+    user?.role === "ROLE_ADMIN"
+      ? ["Home", "Salons", "Categories", "Users"]
+      : user?.role === "ROLE_EMPLOYEE"
+      ? ["Home", "Services", "BookingTimes", "Appointments"]
+      : user?.role === "ROLE_CLIENT"
+      ? ["Home", "Salons", "Appointments"]
+      : ["Home", "Salons"];
 
+  const settings = user?.role === "ROLE_ADMIN" ? ["Logout"] : ["Profile", "Appointments", "Logout"];
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };

@@ -7,6 +7,7 @@ import ServicesService from "../../services/services.service";
 import CategoryService from "../../services/category.service";
 import AppointmentModal from "../Appointment/AppointmentModal";
 import ReviewsList from "../Review/ReviewsList";
+import MapComponentSeparate from "../MapComponentSeparate";
 
 const SelectedSalon: React.FC = () => {
   const { id } = useParams();
@@ -156,6 +157,15 @@ const SelectedSalon: React.FC = () => {
         </>
       )}
       <ReviewsList salonId={salon?.id || -1} />
+      <Stack direction={"row"} display={"flex"} justifyContent={"space-between"} gap={5}>
+        <Stack>
+          <Typography variant="h3">Contact information:</Typography>
+          <p>Address: {salon?.address}</p>
+          <p>Number: {salon?.number}</p>
+          <p>Email: {salon?.email}</p>
+        </Stack>
+        <Stack width={"50%"}>{salon && <MapComponentSeparate salon={salon} />}</Stack>
+      </Stack>
     </Box>
   );
 };

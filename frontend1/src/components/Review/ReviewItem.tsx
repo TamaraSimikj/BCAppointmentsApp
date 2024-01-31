@@ -3,7 +3,6 @@ import { Box, Typography, Rating, Stack, IconButton } from "@mui/material";
 import { Review } from "../../data/models/Models";
 import dayjs from "dayjs";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@material-ui/icons";
-import ReviewService from "../../services/review.service";
 import RateDialog from "./RateDialog";
 import { ReviewDTO } from "../../data/models/DTOs";
 import { useUser } from "../../contexts/UserContext";
@@ -29,7 +28,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review, handleDelete, handleEdi
         <Typography variant="body2">{dayjs(review.date_time).format("DD/MM/YYYY")}</Typography>
       </Stack>
       <Stack direction={"row"} display={"block"} textAlign={"center"}>
-        {user?.client.id == review.client.id && (
+        {user?.role == "ROLE_CLIENT" && user?.client.id == review.client.id && (
           <>
             <RateDialog isEditing={true} review={review} handleEdit={handleEdit} />
             {/* <IconButton aria-label="edit" onClick={() => handleEdit(review)}>

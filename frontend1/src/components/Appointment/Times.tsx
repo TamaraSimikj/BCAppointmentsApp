@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import { Grid, Button, Typography, FormControl, Select, InputLabel, MenuItem, Stack, Box } from "@mui/material";
-import { BookingTime, Employee, Service } from "../../data/models/Models";
+import { Employee, Service } from "../../data/models/Models";
 import { Calendar } from "react-multi-date-picker";
 import AppointmentService from "../../services/appointment.service";
 import EmployeeService from "../../services/employee.service";
+import { useUser } from "../../contexts/UserContext";
 
 type SlotTime = {
   time: string;
@@ -20,6 +21,7 @@ interface TimesProps {
 }
 
 const Times: React.FC<TimesProps> = ({ service, onNext }) => {
+  const { user } = useUser();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [employees, setEmployees] = useState<Employee[]>([]);
 
@@ -104,7 +106,7 @@ const Times: React.FC<TimesProps> = ({ service, onNext }) => {
           Select Date:
         </Typography>
         {/* minDate={today} */}
-        <Calendar value={selectedDate} onChange={(newDate: any) => handleDateChange(newDate)} className="teal" format="DD/MM/YYYY" />
+        <Calendar value={selectedDate} minDate={today} onChange={(newDate: any) => handleDateChange(newDate)} className="teal" format="DD/MM/YYYY" />
         <Typography variant="h6" gutterBottom sx={{ marginTop: "5%" }}>
           Filter by employee:
         </Typography>
@@ -157,7 +159,7 @@ const Times: React.FC<TimesProps> = ({ service, onNext }) => {
           ))}
         </Grid>
 
-        {selectedTimeSlot && (
+        {selectedTimeSlot && user?.role !== "ROLE_ADMIN" && (
           <Button variant="contained" color="primary" onClick={handleNextClick} sx={{ marginTop: "2%" }}>
             Next
           </Button>

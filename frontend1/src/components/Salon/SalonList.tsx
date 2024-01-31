@@ -73,64 +73,47 @@ const SalonList: FC<SalonListProps> = ({ onlyFavorites }) => {
       showNotification("Please select salon to be deleted", "warning");
       return;
     }
-    fetch(`http://localhost:8080/api/salons/${salon.id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Salon deleted successfully");
-          showNotification("Salon deleted successfully", "success");
-          // Optionally, you can update the salon list here
-          fetchSalons();
-        } else {
-          console.error("Error deleting salon:", response.status);
-          showNotification("Error deleting salon", "error");
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting salon:", error);
-        showNotification("Error deleting salon", "error");
-      })
-      .finally(() => {
-        setIsDeleteDialogOpen(false);
-        // Optionally, you can update the salon list here
-        // fetchSalons();
-      });
+    try {
+      SalonService.deleteSalon(salon.id);
+      showNotification("Salon deleted successfully", "success");
+      // fetchSalons();
+      setSalons((prevSalons) => prevSalons.filter((prevSalon) => prevSalon.id !== salon.id));
+
+      setIsDeleteDialogOpen(false);
+    } catch (error) {
+      console.error("Error deleting salon:", error);
+      showNotification("Error deleting salon", "error");
+    }
   };
   const handleEdit = (event: any, salon: Salon) => {
     event.stopPropagation();
+    console.log("edit selected , ", selectedSalon);
     setSelectedSalon(salon);
     setIsEditDialogOpen(true);
   };
 
-  const onEdit = (salon: Salon) => {
+  const onEdit = async (salon: Salon) => {
     const updatedSalonData = {
       name: salon.name,
       address: salon.address,
+      latitude: salon.latitude,
+      longitude: salon.longitude,
       number: salon.number,
       email: salon.email,
       image: salon.image,
     };
 
-    fetch(`http://localhost:8080/api/salons/${salon.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedSalonData),
-    })
-      .then((response) => response.json())
-      .then((updatedSalon) => {
-        console.log("Salon updated successfully:", updatedSalon);
-        showNotification("Salon updated successfully", "success");
+    try {
+      const updated = await SalonService.updateSalon(salon.id, updatedSalonData);
+      showNotification("Salon updated successfully", "success");
+      // fetchSalons();
+      setSalons((prevSalons) => prevSalons.map((prevSalon) => (prevSalon.id === updated.id ? updated : prevSalon)));
 
-        fetchSalons();
-        setIsEditDialogOpen(false);
-      })
-      .catch((error) => {
-        showNotification(error, "error");
-        console.error("Error updating salon:", error);
-      });
+      setIsEditDialogOpen(false);
+    } catch (error) {
+      showNotification("Error updating salon", "error");
+      console.error("Error updating salon:", error);
+    }
   };
 
   return (

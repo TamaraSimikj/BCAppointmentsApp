@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "../components/HomePage";
 import SalonManagementComponent from "../components/Salon/SalonManagementComponent";
 import SignUp from "../components/auth/SignUp";
@@ -10,12 +9,12 @@ import BookingTimes from "../components/BookingTime/BookingTimes";
 import ProtectedRoute from "./ProtectedRoute";
 import RegisterAdmin from "../components/auth/RegisterAdmin";
 import SelectedSalon from "../components/Salon/SelectedSalon";
-import Times from "../components/Appointment/Times";
-import AppointmentsList from "../components/Appointment/AppointmentsList";
+
 import Appointments from "../components/Appointment/Appointments";
 import { useUser } from "../contexts/UserContext";
 import AppointmentsManagement from "../components/Appointments-Empl/AppointmentsManagement";
 import Profile from "../components/Profile";
+import UsersDashboard from "../components/Users/UsersDashboard";
 
 const AllRoutes = () => {
   const { user } = useUser();
@@ -32,6 +31,7 @@ const AllRoutes = () => {
         <Route element={<ProtectedRoute requiredRole={"ROLE_ADMIN"} />}>
           <Route path="/categories" element={<Categories />} />
           <Route path="/registerAdmin" element={<RegisterAdmin />} />
+          <Route path="/users" element={<UsersDashboard />} />
           {/* <Route path="/profile" element={<UserProfile />} /> */}
           {/* Handle other routes */}
         </Route>{" "}

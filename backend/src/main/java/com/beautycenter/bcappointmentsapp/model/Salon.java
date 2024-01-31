@@ -30,6 +30,9 @@ public class Salon {
     @Column(nullable = false)
     private String address;
 
+    private String latitude;
+    private String longitude;
+
     @Column(nullable = false, length = 100)
     private String number;
 
@@ -49,9 +52,11 @@ public class Salon {
 //    @ManyToMany(mappedBy = "favouritesSalons")
 //    private List<Client> favouritesClients;
 
-    public Salon(String name, String address, String number, String email,String image) {
+    public Salon(String name, String address,String latitude,String longitude,  String number, String email,String image) {
         this.name = name;
         this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.number = number;
         this.email = email;
         this.image = image;
@@ -60,9 +65,16 @@ public class Salon {
     public Salon(SalonDTO salonDTO) {
         this.name = salonDTO.getName();
         this.address = salonDTO.getAddress();
+        this.latitude = salonDTO.getLatitude();
+        this.longitude = salonDTO.getLongitude();
         this.number = salonDTO.getNumber();
         this.email = salonDTO.getEmail();
-        this.image = salonDTO.getImage();
+        if (salonDTO.getImage().length() > 255) {
+            this.image = "https://toppng.com/uploads/preview/beauty-center-png-beauty-center-logo-png-11556097776anielza4zb.png";
+        } else {
+            this.image = salonDTO.getImage();
+        }
+//        this.image = salonDTO.getImage();
     }
 }
 
