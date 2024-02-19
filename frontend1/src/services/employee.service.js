@@ -146,6 +146,20 @@ const EmployeeService = {
       throw error;
     }
   },
+  deleteOldTimeslots: async () => {
+    try {
+      await axios.delete(`${API_BASE_URL}/deleteOldTimeslots`, {
+        headers: {
+          ...authHeader(),
+          'Content-Type': 'application/json',
+        },
+      });
+      //console.log('Old timeslots successfully deleted.');
+    } catch (error) {
+      console.error('Error deleting old timeslots:', error);
+      throw error;
+    }
+  },
 
 
 };

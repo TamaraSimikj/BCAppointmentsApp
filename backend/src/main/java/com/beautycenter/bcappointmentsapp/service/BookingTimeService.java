@@ -23,4 +23,6 @@ public interface BookingTimeService {
     void delete(Long id);
 
     void createBookingTimes(BookingTimeRequest[] bookingTimeRequest);
+
+    void  deleteOldTimeslots();
 }

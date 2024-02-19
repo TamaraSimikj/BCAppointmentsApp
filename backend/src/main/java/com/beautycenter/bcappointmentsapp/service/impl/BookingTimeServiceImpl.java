@@ -197,4 +197,12 @@ public class BookingTimeServiceImpl implements BookingTimeService {
 
         return bookingTimes;
     }
+    @Override
+    public void deleteOldTimeslots() {
+        LocalDate thresholdDate = LocalDate.now().minusDays(2);
+        // Step 2: Find timeslots that are not in any appointment and are older than the threshold date
+        List<BookingTime> oldTimeslots = bookingTimeRepository.findOldTimeslotsNotInAppointments(thresholdDate);
+        // Step 3: Delete the old timeslots
+        bookingTimeRepository.deleteAll(oldTimeslots);
+    }
 }

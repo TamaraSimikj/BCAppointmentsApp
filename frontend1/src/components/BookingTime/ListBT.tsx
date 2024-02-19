@@ -14,6 +14,8 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
+  TextField,
+  Stack,
 } from "@mui/material";
 import AuthService from "../../services/auth.service";
 import { useUser } from "../../contexts/UserContext";
@@ -23,6 +25,7 @@ const ListBT = () => {
   const [filteredBookingTimes, setFilteredBookingTimes] = useState<BookingTime[]>([]);
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,37 +61,65 @@ const ListBT = () => {
     setSelectedEmployee(employees.find((empl) => empl.id === employeeId) || null);
   };
 
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+  };
+
   useEffect(() => {
     // Apply employee filter
-    const filteredByEmployee = selectedEmployee
-      ? bookingTimes.filter((bookingTime) => bookingTime.employee.id === selectedEmployee.id)
-      : bookingTimes;
+    let filteredByEmployee = selectedEmployee ? bookingTimes.filter((bookingTime) => bookingTime.employee.id === selectedEmployee.id) : bookingTimes;
+
+    // Apply date filter
+    if (selectedDate) {
+      const selectedDateFormatted = selectedDate.toISOString().split("T")[0];
+      filteredByEmployee = filteredByEmployee.filter((bookingTime) => {
+        const btFormatted = bookingTime.startTime.split("T")[0];
+        return btFormatted.includes(selectedDateFormatted);
+      });
+    }
+    console.log("filtered", filteredByEmployee);
 
     setFilteredBookingTimes(filteredByEmployee);
-  }, [selectedEmployee, bookingTimes]);
+  }, [selectedEmployee, selectedDate, bookingTimes]);
+
   return (
     <>
-      <FormControl sx={{ width: "200px", marginLeft: "25%", marginTop: "2%" }}>
-        <InputLabel id="employee-filter-label" size="small">
-          Employee
-        </InputLabel>
-        <Select
-          labelId="employee-filter-label"
-          id="employee-filter"
-          value={selectedEmployee ? selectedEmployee.id : ""}
-          onChange={handleEmployeeFilterChange}
-          size="small"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {employees.map((empl) => (
-            <MenuItem key={empl.id} value={empl.id}>
-              {empl.name}
+      <Stack direction="row" sx={{ marginLeft: "25%", marginRight: "25%", marginTop: "2%", display: "flex", justifyContent: "space-between" }}>
+        <FormControl sx={{ width: "200px" }}>
+          <InputLabel id="employee-filter-label" size="small">
+            Employee
+          </InputLabel>
+          <Select
+            labelId="employee-filter-label"
+            id="employee-filter"
+            value={selectedEmployee ? selectedEmployee.id : ""}
+            onChange={handleEmployeeFilterChange}
+            size="small"
+          >
+            <MenuItem value="">
+              <em>None</em>
             </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+            {employees.map((empl) => (
+              <MenuItem key={empl.id} value={empl.id}>
+                {empl.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <TextField
+          id="date"
+          label="Filter by date"
+          type="date"
+          InputLabelProps={{
+            shrink: true,
+            size: "small",
+          }}
+          value={selectedDate ? selectedDate.toISOString().split("T")[0] : ""}
+          onChange={(e: any) => handleDateChange(new Date(e.target.value))}
+          sx={{ width: "200px", marginLeft: "5%" }}
+        />
+      </Stack>
       <TableContainer component={Paper} sx={{ width: "50%", margin: "auto" }}>
         <Table>
           <TableHead>

@@ -98,4 +98,10 @@ public class EmployeeController {
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping("/deleteOldTimeslots")
+    public ResponseEntity<Void> deleteOldTimeslots() {
+        bookingTimeService.deleteOldTimeslots();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
