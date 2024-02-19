@@ -6,7 +6,11 @@ import com.beautycenter.bcappointmentsapp.model.dto.AppointmentDTO;
 import com.beautycenter.bcappointmentsapp.model.dto.BookingTimeSlotsDTO;
 import com.beautycenter.bcappointmentsapp.service.AppointmentService;
 import com.beautycenter.bcappointmentsapp.service.BookingTimeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +21,9 @@ import java.util.List;
 public class AppointmentController {
  private final BookingTimeService bookingTimeService;
     private final AppointmentService appointmentService;
+
+    @Autowired
+    private PlatformTransactionManager transactionManager;
 
 
     public AppointmentController(BookingTimeService bookingTimeService, AppointmentService appointmentService) {
@@ -96,13 +103,39 @@ public ResponseEntity<List<BookingTimeSlotsDTO>> getSlotsByDate(@RequestParam("d
         }
     }
 
+//    @PostMapping("/create")
+//    public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+//        try {
+//            Appointment createdAppointment = appointmentService.create(appointmentDTO);
+//            return ResponseEntity.ok(createdAppointment);
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().build();
+//        }
+//    }
+
     @PostMapping("/create")
-    public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+    public ResponseEntity<?> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         try {
+            // Begin a database transaction
+            TransactionStatus transactionStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+
+            // Check if an appointment already exists for the given booking time
+            boolean appointmentExists = appointmentService.existsByBookingTime(appointmentDTO.getBookingTime());
+            if (appointmentExists) {
+                // Rollback the transaction
+                transactionManager.rollback(transactionStatus);
+                return ResponseEntity.badRequest().body("Appointment already exists for the given booking time.");
+            }
+
+            // Create the appointment
             Appointment createdAppointment = appointmentService.create(appointmentDTO);
+
+            // Commit the transaction
+            transactionManager.commit(transactionStatus);
+
             return ResponseEntity.ok(createdAppointment);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Failed to create appointment.");
         }
     }
 

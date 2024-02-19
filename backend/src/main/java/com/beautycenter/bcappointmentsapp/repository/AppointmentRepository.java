@@ -34,4 +34,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findAllByClient_IdOrderByBookingTimeDesc(Long id);
     List<Appointment> findAllBySalon_IdOrderByBookingTimeDesc(Long id);
 
+    Boolean existsByBookingTime(BookingTime bookingTime);
+
 }

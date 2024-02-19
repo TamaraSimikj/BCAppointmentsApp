@@ -1,6 +1,7 @@
 package com.beautycenter.bcappointmentsapp.service;
 
 import com.beautycenter.bcappointmentsapp.model.Appointment;
+import com.beautycenter.bcappointmentsapp.model.BookingTime;
 import com.beautycenter.bcappointmentsapp.model.dto.AppointmentDTO;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface AppointmentService {
     List<Appointment> listAllBySalonId(Long id);
 
     Appointment findbyId(Long Id);
+
+    boolean existsByBookingTime(BookingTime bookingTime);
 
     Appointment create(AppointmentDTO appointmentDTO);
 

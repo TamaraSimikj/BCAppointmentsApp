@@ -5,7 +5,6 @@ import { useUser } from "../../contexts/UserContext";
 import { AppointmentDTO } from "../../data/models/DTOs";
 import { AppointmentStatus } from "../../data/enums";
 import dayjs from "dayjs";
-import backgroundImage from "../../assets/background-confirm.jpg";
 import AppointmentService from "../../services/appointment.service";
 import { useNavigate } from "react-router-dom";
 import { useNotification } from "../../hooks/useNotification";
@@ -41,13 +40,19 @@ const ConfirmationComponent: React.FC<ConfirmationProps> = ({ service, bookingTi
       // Call the createAppointment function
       await AppointmentService.createAppointment(appointmentData);
       onConfirm();
-      showNotification("Successfully created new appointment", "success");
-
       // Redirect to /myAppointments after successful creation
-      //   navigate("/myAppointments");
-    } catch (error) {
+      navigate("/appointments");
+      showNotification("Successfully created new appointment", "success");
+    } catch (error: any) {
       console.error("Error creating appointment:", error);
-      // Handle the error as needed
+      if (error.response && error.response.status === 400) {
+        // Appointment already exists for the selected booking time
+        goBack();
+        showNotification("Sorry, appointment already exists for the selected booking time. Please select new timeslot", "warning");
+      } else {
+        // Handle other errors
+        showNotification("Failed to create appointment. Please try again later", "error");
+      }
     }
   };
   return (

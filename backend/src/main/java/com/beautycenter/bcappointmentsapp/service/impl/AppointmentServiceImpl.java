@@ -1,6 +1,7 @@
 package com.beautycenter.bcappointmentsapp.service.impl;
 
 import com.beautycenter.bcappointmentsapp.model.Appointment;
+import com.beautycenter.bcappointmentsapp.model.BookingTime;
 import com.beautycenter.bcappointmentsapp.model.dto.AppointmentDTO;
 import com.beautycenter.bcappointmentsapp.model.enums.AppointmentStatus;
 import com.beautycenter.bcappointmentsapp.model.exceptions.NotFoundException;
@@ -40,6 +41,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public Appointment findbyId(Long id) {
         return this.appointmentRepository.findById(id).orElseThrow(NotFoundException::new);
+    }
+
+    @Override
+    public boolean existsByBookingTime(BookingTime bookingTime) {
+        return appointmentRepository.existsByBookingTime(bookingTime);
     }
 
     @Override

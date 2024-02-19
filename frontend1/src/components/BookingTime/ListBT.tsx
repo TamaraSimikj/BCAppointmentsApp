@@ -68,7 +68,7 @@ const ListBT = () => {
   }, [selectedEmployee, bookingTimes]);
   return (
     <>
-      <FormControl sx={{ width: "200px", marginLeft: "20%", marginTop: "2%" }}>
+      <FormControl sx={{ width: "200px", marginLeft: "25%", marginTop: "2%" }}>
         <InputLabel id="employee-filter-label" size="small">
           Employee
         </InputLabel>
