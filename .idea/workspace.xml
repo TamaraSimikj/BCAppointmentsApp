@@ -5,86 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5f7ab6e-90d3-423a-bc74-f8f32c52a9bc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/BcAppointmentsAppApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/config/CustomUsernameAndPasswordAuthenticationProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/config/JWTAuthConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/config/JWTTokenProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/config/JWTWebSecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/config/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/config/filters/JWTAuthenticationFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/config/filters/JwtAuthorizationFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/Appointment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/BookingTime.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/Category.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/Client.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/Employee.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/EmployeesServices.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/Favorites.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/Payment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/Review.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/Salon.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/Service.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/BookingTimeDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/BookingTimeRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/CategoryDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/ClientDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/EmployeeDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/FavoritesRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/LoginRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/RegisterDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/SalonDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/ServiceDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/UpdateAssignEmplRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/dto/UserDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/enums/AppointmentStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/enums/Role.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/exceptions/BeautyCenterIdExistsException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/exceptions/ErrorResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/exceptions/InvalidSalonIdException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/exceptions/InvalidUsernameOrPasswordException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/exceptions/NotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/exceptions/PasswordNotMatchException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/model/exceptions/UsernameAlreadyExistsException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/AppointmentRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/BookingTimeRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/CategoryRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/ClientRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/EmployeeRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/EmployeesServicesRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/FavouritesRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/PaymentRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/ReviewRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/SalonRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/ServiceRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/BookingTimeService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/CategoryService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/ClientService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/EmployeeService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/SalonService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/ServicesService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/impl/BookingTimeServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/impl/CategoryServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/impl/ClientServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/impl/EmployeeServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/impl/SalonServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/impl/ServicesServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/service/impl/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/webAPI/CategoryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/webAPI/EmployeeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/webAPI/SalonController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/webAPI/ServiceController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/beautycenter/bcappointmentsapp/webAPI/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/beautycenter/bcappointmentsapp/BcAppointmentsAppApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend1/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend1/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend1/src/components/Appointment/AppointmentModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend1/src/components/Appointment/AppointmentModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend1/src/components/HomePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend1/src/components/HomePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend1/src/components/Salon/SelectedSalon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend1/src/components/Salon/SelectedSalon.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,32 +45,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/Tamara/Desktop/BCAppointmentsApp/BCAppointmentsApp/backend/pom.xml",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "spring.configuration.checksum": "f718fefc229b42abe96954c1b447ae69",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Tamara/Desktop/BCAppointmentsApp/BCAppointmentsApp/backend/pom.xml&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f718fefc229b42abe96954c1b447ae69&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Tamara\Desktop\BCAppointmentsApp\BCAppointmentsApp\src\main\java\com\beautycenter\bcappointmentsapp" />
@@ -187,6 +111,7 @@
       <workItem from="1702662186174" duration="26740000" />
       <workItem from="1704125301044" duration="31042000" />
       <workItem from="1705260634224" duration="3262000" />
+      <workItem from="1706970749053" duration="173000" />
     </task>
     <servers />
   </component>

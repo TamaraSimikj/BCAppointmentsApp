@@ -66,6 +66,10 @@ public class EmployeeController {
     public ResponseEntity<List<BookingTime>> getAllBookingTimes() {
         return ResponseEntity.ok(bookingTimeService.findAll());
     }
+    @GetMapping("/bookingTimesBySalon/{id}")
+    public ResponseEntity<List<BookingTime>> getAllBookingTimesForSalon(@PathVariable Long id) {
+        return ResponseEntity.ok(bookingTimeService.findAllBySalon(id));
+    }
 
     @PostMapping("/createBookingTimes")
     public ResponseEntity<?> createBookingTimes(@RequestBody BookingTimeRequest[] bookingTimeRequest) {

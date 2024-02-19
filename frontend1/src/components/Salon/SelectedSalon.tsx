@@ -55,62 +55,63 @@ const SelectedSalon: React.FC = () => {
   };
 
   return (
-    <Box p={5}>
-      <Typography variant="h2" color={"secondary"}>
-        {" "}
-        {salon?.name}
-      </Typography>
-      <Stack direction={"row"}>
-        <List sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}>
-          <Typography variant="h6" color="textSecondary" mb={2}>
-            Categories
-          </Typography>
-          <ListItemButton
-            key={-1}
-            onClick={() => handleCategoryClick(-1)}
-            sx={{
-              "&:hover": {
-                backgroundColor: "#f5f1e1",
-              },
-              backgroundColor: selectedCategory === -1 ? "#efe8ce" : "inherit",
-            }}
-          >
-            <Typography variant="subtitle1" sx={{ fontStyle: "italic" }}>
-              all
+    <>
+      <Box p={5}>
+        <Typography variant="h2" color={"secondary"}>
+          {" "}
+          {salon?.name}
+        </Typography>
+        <Stack direction={"row"} paddingX={"10%"}>
+          <List sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}>
+            <Typography variant="h6" color="textSecondary" mb={2}>
+              Categories
             </Typography>
-          </ListItemButton>
-          {categories.map((category) => (
             <ListItemButton
-              key={category.id}
-              onClick={() => handleCategoryClick(category.id)}
+              key={-1}
+              onClick={() => handleCategoryClick(-1)}
               sx={{
-                backgroundColor: selectedCategory === category.id ? "#efe8ce" : "inherit",
                 "&:hover": {
                   backgroundColor: "#f5f1e1",
                 },
+                backgroundColor: selectedCategory === -1 ? "#efe8ce" : "inherit",
               }}
             >
-              <Typography variant="subtitle1">{category.name}</Typography>
+              <Typography variant="subtitle1" sx={{ fontStyle: "italic" }}>
+                all
+              </Typography>
             </ListItemButton>
-          ))}
-        </List>
-        <List dense sx={{ width: "100%", maxWidth: 600, bgcolor: "background.paper", margin: "auto" }}>
-          {filteredServices.map((service) => {
-            const labelId = `service-list-item-${service.id}`;
-
-            return (
-              <ListItem
-                key={service.id}
-                disablePadding
+            {categories.map((category) => (
+              <ListItemButton
+                key={category.id}
+                onClick={() => handleCategoryClick(category.id)}
                 sx={{
-                  height: "90px",
-                  padding: "1em",
+                  backgroundColor: selectedCategory === category.id ? "#efe8ce" : "inherit",
                   "&:hover": {
                     backgroundColor: "#f5f1e1",
                   },
                 }}
               >
-                {/* <ListItemButton
+                <Typography variant="subtitle1">{category.name}</Typography>
+              </ListItemButton>
+            ))}
+          </List>
+          <List dense sx={{ width: "100%", maxWidth: 600, bgcolor: "background.paper", margin: "auto" }}>
+            {filteredServices.map((service) => {
+              const labelId = `service-list-item-${service.id}`;
+
+              return (
+                <ListItem
+                  key={service.id}
+                  disablePadding
+                  sx={{
+                    height: "90px",
+                    padding: "1em",
+                    "&:hover": {
+                      backgroundColor: "#f5f1e1",
+                    },
+                  }}
+                >
+                  {/* <ListItemButton
                   sx={{
                     height: "90px",
                     "&:hover": {
@@ -118,46 +119,47 @@ const SelectedSalon: React.FC = () => {
                     },
                   }}
                 > */}
-                <ListItemAvatar>
-                  <Avatar alt={`Avatar n°${service.id + 1}`} src={`/static/images/avatar/${service.id + 1}.jpg`} />
-                </ListItemAvatar>
-                <ListItemText
-                  id={labelId}
-                  primary={
-                    <React.Fragment>
-                      <Typography variant="subtitle1">{service.name}</Typography>
-                      <Typography variant="body2" color="textSecondary">
-                        {service.description}
-                      </Typography>
-                    </React.Fragment>
-                  }
-                />
-                <ListItemText
-                  id={labelId}
-                  primary={
-                    <Stack direction={"row"} justifyContent="flex-end">
-                      <Typography variant="subtitle1" alignSelf={"center"} pr={2}>
-                        {service.value}
-                      </Typography>
-                      <Button variant="contained" color="secondary" onClick={() => handleClickSelect(service)}>
-                        Select
-                      </Button>
-                    </Stack>
-                  }
-                />
-                {/* </ListItemButton> */}
-              </ListItem>
-            );
-          })}
-        </List>
-      </Stack>
-      {selectedService && (
-        <>
-          <AppointmentModal open={isDialogOpen || false} service={selectedService} onClose={() => setIsDialogOpen(false)} />
-        </>
-      )}
-      <ReviewsList salonId={salon?.id || -1} />
-      <Stack direction={"row"} display={"flex"} justifyContent={"space-between"} gap={5}>
+                  <ListItemAvatar>
+                    <Avatar alt={`Avatar n°${service.id + 1}`} src={`/static/images/avatar/${service.id + 1}.jpg`} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    id={labelId}
+                    primary={
+                      <React.Fragment>
+                        <Typography variant="subtitle1">{service.name}</Typography>
+                        <Typography variant="body2" color="textSecondary">
+                          {service.description}
+                        </Typography>
+                      </React.Fragment>
+                    }
+                  />
+                  <ListItemText
+                    id={labelId}
+                    primary={
+                      <Stack direction={"row"} justifyContent="flex-end">
+                        <Typography variant="subtitle1" alignSelf={"center"} pr={2}>
+                          {service.value}
+                        </Typography>
+                        <Button variant="contained" color="secondary" onClick={() => handleClickSelect(service)}>
+                          Select
+                        </Button>
+                      </Stack>
+                    }
+                  />
+                  {/* </ListItemButton> */}
+                </ListItem>
+              );
+            })}
+          </List>
+        </Stack>
+        {selectedService && (
+          <>
+            <AppointmentModal open={isDialogOpen || false} service={selectedService} onClose={() => setIsDialogOpen(false)} />
+          </>
+        )}
+        <ReviewsList salonId={salon?.id || -1} />
+      </Box>
+      <Stack direction={"row"} display={"flex"} justifyContent={"space-between"} gap={5} sx={{ p: 5, backgroundColor: "whitesmoke" }}>
         <Stack>
           <Typography variant="h3">Contact information:</Typography>
           <p>Address: {salon?.address}</p>
@@ -166,7 +168,7 @@ const SelectedSalon: React.FC = () => {
         </Stack>
         <Stack width={"50%"}>{salon && <MapComponentSeparate salon={salon} />}</Stack>
       </Stack>
-    </Box>
+    </>
   );
 };
 

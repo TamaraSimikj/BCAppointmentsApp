@@ -14,6 +14,7 @@ const ReviewService = {
   },
   getAllReviewsForSalonId: async (id) => {
     try {
+      console.log('try to get for salon iddddd');
       const response = await axios.get(`${BASE_URL}/allBySalon/${id}`);
       return response.data;
     } catch (error) {

@@ -11,6 +11,7 @@ import { Box, Container, Paper, ThemeProvider } from "@mui/material";
 import Notification from "./components/Notification";
 import { AuthProvider } from "./contexts/AuthContext";
 import AllRoutes from "./routes/AllRoutes";
+import Footer from "./components/Footer";
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -46,6 +47,7 @@ function App() {
               <AllRoutes />
               {/* </div> */}
             </Box>
+            <Footer />
           </ThemeProvider>
         </LocalizationProvider>
       </AuthProvider>

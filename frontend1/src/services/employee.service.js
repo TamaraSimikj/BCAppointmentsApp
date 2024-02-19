@@ -104,6 +104,20 @@ const EmployeeService = {
       throw error;
     }
   },
+  getAllBookingTimesBySalon: async (id) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/bookingTimesBySalon/${id}`, {
+        headers: {
+          ...authHeader(),
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching booking times:', error);
+      throw error;
+    }
+  },  
   getAllEmployeesForService: async (serviceId) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/listEmployeesByService/${serviceId}`, {

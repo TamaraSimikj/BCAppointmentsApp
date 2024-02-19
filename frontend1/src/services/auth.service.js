@@ -1,5 +1,4 @@
 import axios from "axios";
-import { RegisterModel } from "../data/models/DTOs";
 
 const register = (RegisterModel) => {
   return axios.post("http://localhost:8080/api/register", {

@@ -24,10 +24,15 @@ const HomePage = () => {
         Available salons
       </Typography>
       <SalonList onlyFavorites={false} />
-      {/* <ReviewsList salonId={-1} /> */}
+      <Stack padding={5}>
+        <ReviewsList salonId={-1} />
+      </Stack>
+
       {/* -1 - get all salons reviews */}
-      <Stack width={"80%"} margin={"auto"}>
-        <MapComponent salons={salons} />
+      <Stack mt={"2%"} sx={{ backgroundColor: "whitesmoke" }}>
+        <Stack width={"80%"} margin={"auto"}>
+          <MapComponent salons={salons} />
+        </Stack>
       </Stack>
     </>
   );

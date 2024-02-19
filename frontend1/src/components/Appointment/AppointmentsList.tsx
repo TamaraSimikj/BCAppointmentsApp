@@ -21,7 +21,7 @@ import AppointmentService from "../../services/appointment.service";
 import AppointmentStatusIcon from "./AppointmentStatusIcon";
 import Divider from "@mui/material/Divider";
 import dayjs from "dayjs";
-import { AppointmentStatus } from "../../data/enums";
+import { AppointmentStatus, Role } from "../../data/enums";
 import RateDialog from "../Review/RateDialog";
 
 interface AppointmentsListProps {
@@ -32,6 +32,7 @@ interface AppointmentsListProps {
 }
 
 const AppointmentsList: React.FC<AppointmentsListProps> = ({ finished, appointments, onDecline }) => {
+  const { user } = useUser();
   const [isDeclineDialogOpen, setIsDeclineDialogOpen] = useState<boolean>(false);
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment>({} as Appointment);
 
@@ -107,33 +108,31 @@ const AppointmentsList: React.FC<AppointmentsListProps> = ({ finished, appointme
                     {!finished && appointment.status !== AppointmentStatus.DECLINED && (
                       <>
                         <Button variant="contained" color="error" onClick={(event) => handleDecline(event, appointment)}>
-                          Decline
+                          {user?.role == Role.CLIENT ? "Cancel" : "Decline"}
                         </Button>
                         <Dialog open={isDeclineDialogOpen} onClose={() => setIsDeclineDialogOpen(false)} maxWidth="sm">
-                          <DialogTitle>Decline Appointment with ID:{selectedAppointment.id}</DialogTitle>
+                          <DialogTitle>
+                            {" "}
+                            {user?.role == Role.CLIENT ? "Cancel" : "Decline"} Appointment with ID:{selectedAppointment.id}
+                          </DialogTitle>
                           <DialogContent>
                             <Typography>
-                              Are you sure you want to decline appointment on{" "}
+                              Are you sure you want to {user?.role == Role.CLIENT ? "cancel" : "decline"} appointment on{" "}
                               {dayjs(selectedAppointment.bookingTime?.startTime).format("DD/MM/YYYY HH:mm")}?
                             </Typography>
                           </DialogContent>
                           <DialogActions>
                             <Button onClick={callDecline} variant="contained" color="error">
-                              Decline
+                              {user?.role == Role.CLIENT ? "Cancel" : "Decline"}
                             </Button>
                             <Button onClick={() => setIsDeclineDialogOpen(false)} variant="outlined">
-                              Cancel
+                              Close
                             </Button>
                           </DialogActions>
                         </Dialog>
                       </>
                     )}
-                    {finished && (
-                      // <Button variant="outlined" color="success" onClick={() => console.log("click")}>
-                      //   Rate
-                      // </Button>
-                      <RateDialog appointment={appointment} isEditing={false} />
-                    )}
+                    {finished && appointment.status !== AppointmentStatus.DECLINED && <RateDialog appointment={appointment} isEditing={false} />}
                   </Stack>
                 }
               />

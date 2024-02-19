@@ -38,6 +38,11 @@ public class BookingTimeServiceImpl implements BookingTimeService {
     }
 
     @Override
+    public List<BookingTime> findAllBySalon(Long id) {
+        return this.bookingTimeRepository.findAllByEmployee_Salon_Id(id);
+    }
+
+    @Override
     public List<BookingTimeSlotsDTO> findAllByDate(LocalDateTime date, Long serviceId) {
         List<Long> employeeIds = employeeService.findEmployeeIdsByServiceId(serviceId);
 

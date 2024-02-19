@@ -48,10 +48,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if(userDetails ==null){
-                throw new RuntimeException("Username does't exist!");
+                //  throw new RuntimeException("Username does't exist!");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Username does not exist!");
+                return null;
             }
             if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-                throw new RuntimeException("Credentials do not match!");
+               // throw new RuntimeException("Credentials do not match!");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Incorrect password!");
+                return null;
             }
 
             return authenticationManager.authenticate(

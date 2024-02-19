@@ -16,7 +16,9 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import AuthService from "../../services/auth.service";
+import { useUser } from "../../contexts/UserContext";
 const ListBT = () => {
+  const { user } = useUser();
   const [bookingTimes, setBookingTimes] = useState<BookingTime[]>([]);
   const [filteredBookingTimes, setFilteredBookingTimes] = useState<BookingTime[]>([]);
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -25,7 +27,10 @@ const ListBT = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const btData = await EmployeeService.getAllBookingTimes();
+        console.log("getAllBookingTimesBySalon", user?.employee.salon.id);
+
+        const btData = await EmployeeService.getAllBookingTimesBySalon(user?.employee.salon.id);
+        console.log("btData", btData);
         setBookingTimes(btData);
         setFilteredBookingTimes(btData);
 

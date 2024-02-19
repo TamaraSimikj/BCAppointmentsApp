@@ -25,7 +25,7 @@ const AllRoutes = () => {
         <Route path="/home" element={<HomePage />} />
         <Route path="/salons" element={<SalonManagementComponent />} />
         <Route path="/register" element={<SignUp role={"ROLE_CLIENT"} />} />
-        <Route path="/registerEmployee" element={<SignUp role={"ROLE_EMPLOYEE"} />} />
+        <Route path="/registerEmployee" element={<SignUp role={"ROLE_EMPLOYEE"} user={user} />} />
         <Route path="/login" element={<SignIn />} />
         {/* <Route path="/categories" element={<Categories />} /> */}
         <Route element={<ProtectedRoute requiredRole={"ROLE_ADMIN"} />}>

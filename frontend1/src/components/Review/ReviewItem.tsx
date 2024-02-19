@@ -27,20 +27,17 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review, handleDelete, handleEdi
         </Typography>
         <Typography variant="body2">{dayjs(review.date_time).format("DD/MM/YYYY")}</Typography>
       </Stack>
-      <Stack direction={"row"} display={"block"} textAlign={"center"}>
+      {/* <Stack direction={"row"} display={"block"} textAlign={"center"}>
         {user?.role == "ROLE_CLIENT" && user?.client.id == review.client.id && (
           <>
             <RateDialog isEditing={true} review={review} handleEdit={handleEdit} />
-            {/* <IconButton aria-label="edit" onClick={() => handleEdit(review)}>
-          <EditIcon />
-        </IconButton> */}
 
             <IconButton aria-label="delete" onClick={() => handleDelete(review.id)}>
               <DeleteIcon />
             </IconButton>
           </>
         )}
-      </Stack>
+      </Stack> */}
     </Box>
   );
 };

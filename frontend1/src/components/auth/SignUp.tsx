@@ -18,7 +18,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import SalonService from "../../services/salon.service";
-import { Salon } from "../../data/models/Models";
+import { Salon, User } from "../../data/models/Models";
+import { useUser } from "../../contexts/UserContext";
 
 function Copyright(props: any) {
   return (
@@ -35,19 +36,25 @@ function Copyright(props: any) {
 
 interface SignUpProps {
   role: String;
+  user?: User | null;
 }
 
-const SignUp: React.FC<SignUpProps> = ({ role }) => {
+const SignUp: React.FC<SignUpProps> = ({ role, user }) => {
   // console.log("role", role);
   const navigate = useNavigate();
-
+  // const { user } = useUser();
   const [salons, setSalons] = useState<Salon[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const allSalons = await SalonService.getAllSalons();
-        setSalons(allSalons);
+        console.log(user, user?.role, user?.role === Role.EMPLOYEE);
+        if (user?.role === Role.EMPLOYEE) {
+          setSalons([user.employee.salon]);
+        } else {
+          const allSalons = await SalonService.getAllSalons();
+          setSalons(allSalons);
+        }
       } catch (error) {
         console.error("Error fetching salons:", error);
       }
@@ -145,7 +152,7 @@ const SignUp: React.FC<SignUpProps> = ({ role }) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          {role == "ROLE_EMPLOYEE" ? "Register new employee" : "Sign up"}
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -244,7 +251,7 @@ const SignUp: React.FC<SignUpProps> = ({ role }) => {
             </Grid>
           </Grid>
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Sign Up
+            {role == "ROLE_EMPLOYEE" ? "Register" : "Sign up"}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
@@ -255,7 +262,7 @@ const SignUp: React.FC<SignUpProps> = ({ role }) => {
           </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 5 }} />
+      {/* <Copyright sx={{ mt: 5 }} /> */}
     </Container>
   );
 };

@@ -89,8 +89,8 @@ export default function SignIn() {
       },
       (error: any) => {
         console.log(error);
-        const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-        showNotification(resMessage, "error");
+        const errorMessage = error.response ? error.response.data : error.message || error.toString();
+        showNotification(errorMessage, "error");
       }
     );
   };
@@ -155,7 +155,7 @@ export default function SignIn() {
           </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
+      {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
     </Container>
   );
 }

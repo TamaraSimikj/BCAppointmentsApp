@@ -80,7 +80,7 @@ public ResponseEntity<List<BookingTimeSlotsDTO>> getSlotsByDate(@RequestParam("d
     public ResponseEntity<List<Appointment>> getAllAppointmentsForSalon(@PathVariable Long id) {
         try {
 
-            List<Appointment> appointments = appointmentService.listAllByClientId(id);
+            List<Appointment> appointments = appointmentService.listAllBySalonId(id);
             return ResponseEntity.ok(appointments);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

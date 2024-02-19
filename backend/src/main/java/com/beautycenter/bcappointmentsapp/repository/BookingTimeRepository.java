@@ -12,5 +12,5 @@ public interface BookingTimeRepository extends JpaRepository<BookingTime, Long> 
 //    List<BookingTime> findAllByStartTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
 //    List<BookingTime> findAllByStartTimeBetweenAndEmployee_IdIn(LocalDateTime startOfDay, LocalDateTime endOfDay,List<Long>employeeIds);
     List<BookingTime> findAllByStartTimeBetweenAndEmployee_IdInOrderByStartTime(LocalDateTime startOfDay, LocalDateTime endOfDay,List<Long>employeeIds);
-
+    List<BookingTime> findAllByEmployee_Salon_Id(Long id);
 }

@@ -12,6 +12,7 @@ import java.util.List;
 public interface BookingTimeService {
 
     List<BookingTime> findAll();
+    List<BookingTime> findAllBySalon(Long id);
     List<BookingTimeSlotsDTO> findAllByDate(LocalDateTime date,Long serviceId);
     BookingTime findbyId(Long id);
 

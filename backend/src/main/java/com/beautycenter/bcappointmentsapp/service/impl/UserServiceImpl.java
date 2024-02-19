@@ -134,7 +134,7 @@ public User registerEmployee(RegisterDTO registerDTO) {
     User newUser = create(registerDTO.getUsername(),registerDTO.getPassword(),registerDTO.getRole());
       //  Salon salon = this.salonRepository.findById(registerDTO.getSalonId()).orElseThrow(()-> new NotFoundException("Salon with ID " + registerDTO.getSalonId() + " not found"));
         Employee newEmpl = new Employee(registerDTO.getName(),
-                registerDTO.getPhoneNumber(),registerDTO.getSurname(),registerDTO.getEmail(),registerDTO.getSalon());
+                registerDTO.getSurname(),registerDTO.getPhoneNumber(),registerDTO.getEmail(),registerDTO.getSalon());
         this.employeeRepository.save(newEmpl);
         newUser.setEmployee(newEmpl);
 
