@@ -16,11 +16,19 @@ import {
   SelectChangeEvent,
   TextField,
   Stack,
+  IconButton,
 } from "@mui/material";
 import AuthService from "../../services/auth.service";
 import { useUser } from "../../contexts/UserContext";
-const ListBT = () => {
+import CloseIcon from "@mui/icons-material/Close";
+import { useNotification } from "../../hooks/useNotification";
+
+interface ListBTProps {
+  isModalClosed: boolean;
+}
+const ListBT: React.FC<ListBTProps> = ({ isModalClosed }) => {
   const { user } = useUser();
+  const { showNotification } = useNotification();
   const [bookingTimes, setBookingTimes] = useState<BookingTime[]>([]);
   const [filteredBookingTimes, setFilteredBookingTimes] = useState<BookingTime[]>([]);
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -28,10 +36,9 @@ const ListBT = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   useEffect(() => {
+    // console.log("isModalClosed", isModalClosed);
     const fetchData = async () => {
       try {
-        console.log("getAllBookingTimesBySalon", user?.employee.salon.id);
-
         const btData = await EmployeeService.getAllBookingTimesBySalon(user?.employee.salon.id);
         console.log("btData", btData);
         setBookingTimes(btData);
@@ -54,7 +61,7 @@ const ListBT = () => {
 
     fetchData();
     fetchEmployees();
-  }, []);
+  }, [isModalClosed]);
 
   const handleEmployeeFilterChange = (event: SelectChangeEvent<number>) => {
     const employeeId = event.target.value as number;
@@ -81,6 +88,18 @@ const ListBT = () => {
 
     setFilteredBookingTimes(filteredByEmployee);
   }, [selectedEmployee, selectedDate, bookingTimes]);
+
+  const handleDelete = async (bookingTime: BookingTime) => {
+    console.log("Deleting booking time with id", bookingTime.id);
+    try {
+      await EmployeeService.deleteBookingTime(bookingTime.id);
+      setFilteredBookingTimes((prevBookingTimes) => prevBookingTimes.filter((bt) => bt.id !== bookingTime.id));
+      showNotification("Booking time deleted successfully", "success");
+    } catch (error: any) {
+      showNotification(error.response.data, "error");
+      console.log("Error deleting booking time:", error.response.data);
+    }
+  };
 
   return (
     <>
@@ -127,6 +146,7 @@ const ListBT = () => {
               <TableCell>Start Time</TableCell>
               <TableCell>Duration</TableCell>
               <TableCell>Employee</TableCell>
+              <TableCell>Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -135,6 +155,11 @@ const ListBT = () => {
                 <TableCell>{bookingTime.startTime}</TableCell>
                 <TableCell>{bookingTime.duration}</TableCell>
                 <TableCell>{bookingTime.employee.name}</TableCell>
+                <TableCell>
+                  <IconButton aria-label="decline" color="error" onClick={() => handleDelete(bookingTime)}>
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

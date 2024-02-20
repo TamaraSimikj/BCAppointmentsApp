@@ -21,7 +21,7 @@ const ReviewsList: FC<ReviewsListProps> = ({ salonId, clientId }) => {
     const fetchReviews = async () => {
       try {
         let data;
-        console.log("salonId , clientid", salonId, clientId);
+        //console.log("salonId , clientid", salonId, clientId);
         if (salonId !== undefined) {
           if (salonId == -1) {
             data = await ReviewService.getAllReviews();

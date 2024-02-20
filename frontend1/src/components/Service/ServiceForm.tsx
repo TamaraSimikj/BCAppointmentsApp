@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TableContainer, Button, Collapse, IconButton, Box, Stack, TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import { Service } from "../../data/models/Models";
 import CloseIcon from "@mui/icons-material/Close";
 import { Category } from "../../data/models/Models";
@@ -57,8 +57,6 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ service, opened, addNewServic
   };
 
   const handleAddService = () => {
-    console.log("add clicked");
-    console.log("newService", newService);
     if (!isEditing && addNewService !== undefined) {
       addNewService(newService);
     } else if (isEditing && editService !== undefined) {
@@ -67,11 +65,9 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ service, opened, addNewServic
   };
   const handleOpen = () => {
     opened(false);
-    console.log("close clicked");
   };
 
   const handleDeleteService = () => {
-    console.log("delete ", newService.id);
     if (deleteService !== undefined) deleteService(newService.id);
   };
 
@@ -132,7 +128,13 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ service, opened, addNewServic
       />
       <Stack direction={"row"} sx={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
         {isEditing ? (
-          <Button size="small" variant="contained" onClick={handleDeleteService} disabled={!isEditing} sx={{ backgroundColor: "#D22B2B" }}>
+          <Button
+            size="small"
+            variant="contained"
+            onClick={handleDeleteService}
+            disabled={!isEditing}
+            sx={{ backgroundColor: "#D22B2B", color: "white" }}
+          >
             Delete
           </Button>
         ) : (

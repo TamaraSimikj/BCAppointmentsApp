@@ -55,7 +55,11 @@ export interface EmployeeData {
   dates: any;
 }
 
-const CreateBTForm = () => {
+interface BTFormProps {
+  onClose: () => void;
+}
+
+const CreateBTForm: React.FC<BTFormProps> = ({ onClose }) => {
   const [open, setOpen] = useState(false);
   const { showNotification } = useNotification();
 
@@ -95,12 +99,11 @@ const CreateBTForm = () => {
   };
 
   const handleSave = async () => {
-    console.log("save clicked");
-    console.log("Employee data list from child components:", employeeDataList);
     if (formData.type !== "" && employeeDataList.length !== 0) {
       await EmployeeService.createBookingTimes(employeeDataList);
       showNotification("Booking times created successfully!", "success");
       handleClose();
+      onClose(); //emit close to fetch new data for list bt
     } else {
       showNotification("Please fill all fields!", "warning");
     }
@@ -125,10 +128,8 @@ const CreateBTForm = () => {
     const fetchData = async () => {
       try {
         const loggedEmployee = AuthService.getCurrentUser().employee;
-        console.log("loggedEmployee", loggedEmployee);
         const employeesData = await EmployeeService.getAllEmployeesForSalon(loggedEmployee.salon.id);
         setEmployees(employeesData);
-        console.log("employeesData", employeesData);
       } catch (error) {
         console.error("Error fetching employees:", error);
       }
@@ -149,7 +150,6 @@ const CreateBTForm = () => {
       }
       return updatedList;
     });
-    //  console.log("employeeDataList", employeeDataList);
   };
 
   return (

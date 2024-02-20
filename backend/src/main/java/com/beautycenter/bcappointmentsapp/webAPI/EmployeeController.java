@@ -99,9 +99,19 @@ public class EmployeeController {
         }
     }
 
-    @DeleteMapping("/deleteOldTimeslots")
-    public ResponseEntity<Void> deleteOldTimeslots() {
-        bookingTimeService.deleteOldTimeslots();
+    @DeleteMapping("/deleteBookingTime/{id}")
+    public ResponseEntity<String> deleteBookingTime(@PathVariable Long id) {
+        try {
+            bookingTimeService.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/deleteOldTimeslots/{employeeId}")
+    public ResponseEntity<Void> deleteOldTimeslots(@PathVariable Long employeeId) {
+        bookingTimeService.deleteOldTimeslots(employeeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

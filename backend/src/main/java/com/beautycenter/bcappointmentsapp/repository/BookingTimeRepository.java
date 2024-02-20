@@ -17,12 +17,23 @@ public interface BookingTimeRepository extends JpaRepository<BookingTime, Long> 
     List<BookingTime> findAllByStartTimeBetweenAndEmployee_IdInOrderByStartTime(LocalDateTime startOfDay, LocalDateTime endOfDay,List<Long>employeeIds);
     List<BookingTime> findAllByEmployee_Salon_Id(Long id);
 
+    // za site da se izbrisat
+//    @Query("SELECT bt FROM BookingTime bt WHERE bt.startTime < :thresholdDateTime " +
+//            "AND bt.id NOT IN (SELECT a.bookingTime.id FROM Appointment a)")
+//    List<BookingTime> findOldTimeslotsNotInAppointments(LocalDateTime thresholdDateTime);
+//
+//    default List<BookingTime> findOldTimeslotsNotInAppointments(LocalDate thresholdDate) {
+//        LocalDateTime thresholdDateTime = thresholdDate.atTime(LocalTime.MIN);
+//        return findOldTimeslotsNotInAppointments(thresholdDateTime);
+//    }
     @Query("SELECT bt FROM BookingTime bt WHERE bt.startTime < :thresholdDateTime " +
+            "AND bt.employee.id = :employeeId " +
             "AND bt.id NOT IN (SELECT a.bookingTime.id FROM Appointment a)")
-    List<BookingTime> findOldTimeslotsNotInAppointments(LocalDateTime thresholdDateTime);
+    List<BookingTime> findOldTimeslotsNotInAppointmentsByEmployee(LocalDateTime thresholdDateTime, Long employeeId);
 
-    default List<BookingTime> findOldTimeslotsNotInAppointments(LocalDate thresholdDate) {
-        LocalDateTime thresholdDateTime = thresholdDate.atTime(LocalTime.MIN);
-        return findOldTimeslotsNotInAppointments(thresholdDateTime);
+    default List<BookingTime> findOldTimeslotsNotInAppointmentsByEmployee(LocalDate thresholdDate, Long employeeId) {
+        LocalDateTime thresholdDateTime = thresholdDate.atStartOfDay();
+        return findOldTimeslotsNotInAppointmentsByEmployee(thresholdDateTime, employeeId);
     }
+
 }

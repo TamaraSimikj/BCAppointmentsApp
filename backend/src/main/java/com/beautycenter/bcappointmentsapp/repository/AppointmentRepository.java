@@ -36,4 +36,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     Boolean existsByBookingTime(BookingTime bookingTime);
 
+    Appointment findByBookingTime_Id(Long id);
+
 }

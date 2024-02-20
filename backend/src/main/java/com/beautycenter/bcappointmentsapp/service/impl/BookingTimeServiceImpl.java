@@ -1,5 +1,6 @@
 package com.beautycenter.bcappointmentsapp.service.impl;
 
+import com.beautycenter.bcappointmentsapp.model.Appointment;
 import com.beautycenter.bcappointmentsapp.model.BookingTime;
 import com.beautycenter.bcappointmentsapp.model.Employee;
 import com.beautycenter.bcappointmentsapp.model.dto.BookingTimeDTO;
@@ -142,7 +143,21 @@ public class BookingTimeServiceImpl implements BookingTimeService {
 
     @Override
     public void delete(Long id) {
-        this.bookingTimeRepository.deleteById(id);
+        Optional<BookingTime> optionalBookingTime = bookingTimeRepository.findById(id);
+        if (optionalBookingTime.isPresent()) {
+            BookingTime bookingTime = optionalBookingTime.get();
+            // Check if there are any associated appointments
+            Appointment appointment = appointmentRepository.findByBookingTime_Id(bookingTime.getId());
+            if (appointment == null) {
+                //Delete the booking time if no associated appointments found
+                bookingTimeRepository.delete(bookingTime);
+            } else {
+                // Step 4: Throw an exception if associated appointment exists
+                throw new RuntimeException("Cannot delete booking time with associated appointment.");
+            }
+        } else {
+            throw new RuntimeException("Booking time not found.");
+        }
     }
 
     @Override
@@ -198,10 +213,11 @@ public class BookingTimeServiceImpl implements BookingTimeService {
         return bookingTimes;
     }
     @Override
-    public void deleteOldTimeslots() {
+    public void deleteOldTimeslots(Long employeeId) {
         LocalDate thresholdDate = LocalDate.now().minusDays(2);
         // Step 2: Find timeslots that are not in any appointment and are older than the threshold date
-        List<BookingTime> oldTimeslots = bookingTimeRepository.findOldTimeslotsNotInAppointments(thresholdDate);
+//        List<BookingTime> oldTimeslots = bookingTimeRepository.findOldTimeslotsNotInAppointments(thresholdDate);
+        List<BookingTime> oldTimeslots = bookingTimeRepository.findOldTimeslotsNotInAppointmentsByEmployee(thresholdDate, employeeId);
         // Step 3: Delete the old timeslots
         bookingTimeRepository.deleteAll(oldTimeslots);
     }

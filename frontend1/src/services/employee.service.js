@@ -146,9 +146,27 @@ const EmployeeService = {
       throw error;
     }
   },
-  deleteOldTimeslots: async () => {
+  deleteBookingTime: async (id) => {
     try {
-      await axios.delete(`${API_BASE_URL}/deleteOldTimeslots`, {
+      console.log('before req');
+      await axios.delete(`${API_BASE_URL}/deleteBookingTime/${id}`, {
+        headers: {
+          ...authHeader(),
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('after req');
+
+    } catch (error) {
+      console.log('Error deleting booking time:', error);
+      throw error;
+    }
+    console.log('out');
+
+  },
+  deleteOldTimeslots: async (employeeId) => {
+    try {
+      await axios.delete(`${API_BASE_URL}/deleteOldTimeslots/${employeeId}`, {
         headers: {
           ...authHeader(),
           'Content-Type': 'application/json',

@@ -3,14 +3,23 @@ import CreateBTForm from "./CreateBTForm";
 import ListBT from "./ListBT";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useNotification } from "../../hooks/useNotification";
+import { useUser } from "../../contexts/UserContext";
+import { useState } from "react";
 
 const BookingTimes = () => {
   const { showNotification } = useNotification();
+  const { user } = useUser();
+
+  const [isModalClosed, setIsModalClosed] = useState(false);
+
+  const handleModalClose = () => {
+    // console.log("modal closed emitted");
+    setIsModalClosed(!isModalClosed);
+  };
 
   const handleDeleteAll = async () => {
     try {
-      // Call your service method to delete old timeslots
-      await EmployeeService.deleteOldTimeslots();
+      await EmployeeService.deleteOldTimeslots(user?.employee.id);
       showNotification("Old timeslots successfully deleted.", "success");
     } catch (error) {
       showNotification(`Error deleting old timeslots: ${error}`, "error");
@@ -19,14 +28,14 @@ const BookingTimes = () => {
   };
   return (
     <>
-      <CreateBTForm />
+      <CreateBTForm onClose={handleModalClose} />
       <Box sx={{ textAlign: "center", margin: "0.5%" }}>
         <Button variant="outlined" color="error" onClick={handleDeleteAll}>
           Delete old not reserved
         </Button>
       </Box>
 
-      <ListBT />
+      <ListBT isModalClosed={isModalClosed} />
     </>
   );
 };
